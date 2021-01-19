@@ -69,8 +69,11 @@ def to_camel_case(underscore_str):
     """
     check = re.compile("[^_]+")
     camelcase_str = check.findall(copy.deepcopy(underscore_str))
-    if camelcase_str[0] == underscore_str:
-        return camelcase_str[0]
+    if len(camelcase_str) == 0:
+        return ''
     else:
-        camelcase_str = "".join([value.title() if index != 0 else value.lower() for index, value in enumerate(camelcase_str)])
-        return camelcase_str
+        if camelcase_str[0] == underscore_str:
+            return camelcase_str[0]
+        else:
+            camelcase_str = "".join([value.title() if index != 0 else value.lower() for index, value in enumerate(camelcase_str)])
+            return camelcase_str
