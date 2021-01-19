@@ -2,6 +2,8 @@
 # Test Processing II  #
 #######################
 
+import re
+import copy
 
 def digits_to_words(input_string):
     """
@@ -28,7 +30,9 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
+    transform = {'0':'zero', '1':'one', '2':'two', '3':'three', '4':'four', '5':'five', '6':'six', '7':'seven', '8':'eight', '9':'nine'}
+    check = re.compile("[\d]")
+    digit_string = " ".join([transform[i] for i in check.findall(copy.deepcopy(input_string).lower())])
     return digit_string
 
 
@@ -38,7 +42,6 @@ def digits_to_words(input_string):
 두번째로는, 변수 이름을 대소문자 구별해 구분자 (delimiter)없이 쓰는 경우가 있습니다. 
 이 두번째의 경우에는 첫번째 단어는 소문자로, 그 후에 오는 단어들의 첫번째 글자들은 대문자로 쓰입니다 (ex. camelCaseVariable). 
 """
-
 
 def to_camel_case(underscore_str):
     """
@@ -64,5 +67,10 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
-    return camelcase_str
+    check = re.compile("[^_]+")
+    camelcase_str = check.findall(copy.deepcopy(underscore_str))
+    if camelcase_str[0] == underscore_str:
+        return camelcase_str[0]
+    else:
+        camelcase_str = "".join([value.title() if index != 0 else value.lower() for index, value in enumerate(camelcase_str)])
+        return camelcase_str
